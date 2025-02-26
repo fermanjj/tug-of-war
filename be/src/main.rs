@@ -20,7 +20,7 @@ use std::{
         Arc,
     },
 };
-use tracing::{info, warn};
+use tracing::{debug, info, warn};
 
 #[derive(Clone)]
 struct AppState {
@@ -32,7 +32,12 @@ struct AppState {
 async fn main() {
     tracing_subscriber::fmt::init();
 
-    let addr_str = "0.0.0.0:3000";
+    let addr_str = if std::env::var("LOCAL").is_ok() {
+        "0.0.0.0:3000"
+    } else {
+        ""
+    };
+
     let app_state = AppState {
         redis: Arc::new(
             redis::Client::open("redis://0.0.0.0:6379").expect("Failed to connect to Redis"),
@@ -41,6 +46,10 @@ async fn main() {
     };
 
     let app = Router::new()
+        .route(
+            "/",
+            any(async || axum::response::Html(include_str!("../../fe/index.html"))),
+        )
         .route("/ws", any(ws_handler))
         .with_state(app_state);
     let addr = tokio::net::TcpListener::bind(addr_str)
@@ -110,7 +119,7 @@ async fn read(app_state: AppState, mut receiver: SplitStream<WebSocket>, ip: Str
         .expect("Failed to initialize game state");
 
     while let Some(Ok(msg)) = receiver.next().await {
-        info!("Received: {:?}", msg);
+        debug!("Received: {:?}", msg);
         if let Message::Text(text) = msg {
             match serde_json::from_str::<Pull>(&text) {
                 Ok(pull) if pull.action == "pull" => {

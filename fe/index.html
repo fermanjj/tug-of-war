@@ -2,15 +2,299 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tug of War Online</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Join Global Tug-Of-War, a massive online battle where millions of clicks decide the fate of Left vs. Right. Pull your side to victory in this epic, real-time struggle!">
+    <meta name="keywords"
+          content="tug of war, online game, multiplayer game, global tug of war, real-time game, competitive game">
+    <meta name="author" content="Your Name">
+    <meta property="og:title" content="Global Tug-Of-War!">
+    <meta property="og:description"
+          content="A worldwide tug-of-war where every click counts. Will Left or Right prevail? Join the fight now!">
+    <meta property="og:image" content="https://yourdomain.com/favicon.ico">
+    <meta property="og:url" content="https://yourdomain.com">
+    <meta property="og:type" content="website">
+    <title>Global Tug-Of-War!</title>
+    <!-- Favicon: Base64-encoded logo (simplified red circle with rope and flag) -->
+    <link rel="icon"
+          href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxNiIgY3k9IjE2IiByPSIxNiIgZmlsbD0iI2ZmMzMzMyIvPjxwYXRoIGQ9Ik0xNiA4VjI0TTEyIDEySDEyLjAxTTEyIDE2SDEyLjAxTTEyIDIwSDEyLjAxTTE2IDEySDE2LjAxTTE2IDE2SDE2LjAxTTE2IDIwSDE2LjAxTTEyLjUgMTIuNUwxMy41IDEzLjVNMTEuNSAxMy41TDEzLjUgMTUuNU0xMC41IDE1LjVMMTEuNSAxNi41TTEwLjUgMTYuNUwxMS41IDE3LjVNMTAuNSAxNy41TDExLjUgMTguNU0xMC41IDE4LjVMMTEuNSAxOS41TTEwLjUgMTkuNUwxMS41IDIwLjUiIHN0cm9rZT0iIzhCND513IiBzdHJva2Utd2lkdGg9IjEiLz48cGF0aCBkPSJNMTYgMTJWMjQiIHN0cm9rZT0iIzhCND513IiBzdHJva2Utd2lkdGg9IjEiLz48L3N2Zz4="
+          type="image/svg+xml">
+    <style>
+        body {
+            background: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .game-container {
+            text-align: center;
+            padding: 20px;
+            background: #444;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 0;
+            background: #555;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            position: relative;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: #ff3333;
+            border-radius: 50%;
+            position: relative;
+            margin-right: 15px;
+            box-shadow: 0 0 10px rgba(255, 51, 51, 0.7);
+        }
+
+        .logo::before {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #8B4513;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 20px;
+            background: #fff;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 36px;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .user-count {
+            position: absolute;
+            right: 20px;
+            color: #ddd;
+            font-size: 18px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        @media (max-width: 600px) {
+            .header {
+                flex-direction: column;
+                padding: 10px 0;
+            }
+
+            .logo {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            h1 {
+                font-size: 24px;
+                margin-bottom: 10px;
+            }
+
+            .user-count {
+                position: static;
+                font-size: 16px;
+            }
+        }
+
+        .rope {
+            position: relative;
+            width: 80%;
+            height: 20px;
+            background: #8B4513 url('https://www.transparenttextures.com/patterns/woven.png');
+            margin: 20px auto;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .flag {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            width: 20px;
+            height: 40px;
+            background: #ff3333;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transition: left 0.1s ease;
+        }
+
+        .stats {
+            margin: 20px 0;
+            font-size: 24px;
+            display: flex;
+            justify-content: space-around;
+            color: #ddd;
+        }
+
+        #score {
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .buttons {
+            margin: 20px 0;
+        }
+
+        .buttons button {
+            padding: 12px 24px;
+            margin: 0 10px;
+            font-size: 18px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .buttons button:active {
+            transform: scale(0.95);
+        }
+
+        .minimap {
+            width: 60%;
+            height: 20px;
+            background: #666;
+            margin: 20px auto;
+            position: relative;
+            border: 1px solid #999;
+            overflow: hidden;
+        }
+
+        .minimap-flag {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: #ff3333;
+            transition: left 0.2s ease;
+        }
+
+        .minimap-markers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(90deg, #999, #999 1px, transparent 1px, transparent 10%);
+        }
+
+        .minimap-inset {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid #fff;
+            overflow: hidden;
+        }
+
+        .minimap-inset-flag {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: #ff3333;
+            transition: left 0.1s ease;
+        }
+
+        .message-log {
+            height: 100px;
+            overflow: hidden;
+            margin: 20px auto;
+            font-size: 14px;
+            color: #bbb;
+            width: 80%;
+        }
+
+        .message {
+            opacity: 1;
+            transition: opacity 0.5s ease-out;
+            margin: 5px 0;
+        }
+
+        .message.fade {
+            opacity: 0;
+        }
+
+        .pulse {
+            position: absolute;
+            top: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 165, 0, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+        }
+
+        .game-info {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            color: #ddd;
+            font-size: 16px;
+            line-height: 1.5;
+            text-align: left;
+        }
+
+        .game-info h2 {
+            color: #fff;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            padding: 20px;
+            background: #555;
+            color: #ddd;
+            font-size: 14px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        footer a {
+            color: #ddd;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        footer a:hover {
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
 <div class="game-container">
     <header class="header">
         <div class="logo" id="logo"></div>
         <h1>Global Tug-Of-War!</h1>
-        <span class="user-count" id="user-count">Players: 0</span>
+        <span class="user-count" id="user-count">Active Players: 0</span>
     </header>
     <div class="rope">
         <div class="flag" id="flag"></div>
@@ -34,7 +318,124 @@
     </div>
     <div class="message-log" id="message-log"></div>
     <div class="pulse" id="pulse"></div>
+    <div class="game-info">
+        <h2>About the Game</h2>
+        <p>Welcome to <strong>Global Tug-Of-War!</strong>, where every click echoes across the world. This isn’t just a
+            game—it’s a battle of wills, a digital rope stretched taut between two sides: Left and Right. With a finish
+            line 10 million pulls away in either direction, it’s a marathon of collective effort. Each tug moves the
+            flag one step closer to victory, a tiny shift in a grand struggle that could take days or weeks to resolve.
+        </p>
+        <p>Imagine a dusty battlefield, the air thick with tension. On one side, the Left Squad rallies, their shouts
+            blending into a roar of defiance. On the other, the Right Brigade digs in, unyielding. The rope creaks, the
+            flag flutters, and you—yes, you—hold the power to tip the scales. No signups, no barriers—just pure, instant
+            action. Will you pull for chaos or order, for one side or the other? The choice is yours, but the story is
+            ours.</p>
+        <p>Join the fray, share the fight, and watch as humanity’s tug-of-war unfolds live. This is more than a
+            game—it’s a testament to what we can do together, one pull at a time.</p>
+    </div>
+    <footer>
+        <a href="https://x.com/jjferman" target="_blank">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+        </a>
+        <a href="https://github.com/fermanjj" target="_blank">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.6.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+            </svg>
+        </a>
+    </footer>
 </div>
-<script src="script.js"></script>
+<script>
+    const socket = new WebSocket('ws://localhost:3000/ws');
+    const flag = document.getElementById('flag');
+    const leftPulls = document.getElementById('left-pulls');
+    const rightPulls = document.getElementById('right-pulls');
+    const scoreDisplay = document.getElementById('score');
+    const pullLeftBtn = document.getElementById('pull-left');
+    const pullRightBtn = document.getElementById('pull-right');
+    const minimap = document.getElementById('minimap');
+    const minimapFlag = document.getElementById('minimap-flag');
+    const minimapInset = document.getElementById('minimap-inset');
+    const minimapInsetFlag = document.getElementById('minimap-inset-flag');
+    const pulse = document.getElementById('pulse');
+    const messageLog = document.getElementById('message-log');
+    const userCount = document.getElementById('user-count');
+
+    let position = 0;
+    let prevLeftPulls = 0;
+    let prevRightPulls = 0;
+    const TOTAL_STEPS = 10000000;
+    const INSET_RANGE = 100000;
+
+    socket.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        const newPosition = data.position;
+        const newLeftPulls = data.left_pulls;
+        const newRightPulls = data.right_pulls;
+
+        let pullSide = '';
+        if (newLeftPulls > prevLeftPulls) {
+            pullSide = 'Left';
+        } else if (newRightPulls > prevRightPulls) {
+            pullSide = 'Right';
+        }
+
+        position = newPosition;
+        prevLeftPulls = newLeftPulls;
+        prevRightPulls = newRightPulls;
+        leftPulls.textContent = `Left Pulls: ${newLeftPulls.toLocaleString()}`;
+        rightPulls.textContent = `Right Pulls: ${newRightPulls.toLocaleString()}`;
+        userCount.textContent = `Active Players: ${data.active_users}`
+
+        const flagPos = ((position + TOTAL_STEPS) / (2 * TOTAL_STEPS)) * 100;
+        flag.style.left = `${flagPos}%`;
+        minimapFlag.style.left = `${flagPos}%`;
+
+        const insetPos = ((position + INSET_RANGE) / (2 * INSET_RANGE)) * 100;
+        minimapInsetFlag.style.left = `${Math.max(0, Math.min(100, insetPos))}%`;
+
+        const score = Math.abs(position);
+        const percentage = (Math.abs(position) / TOTAL_STEPS) * 100;
+        const leadingSide = position >= 0 ? 'Right' : 'Left';
+        scoreDisplay.textContent = `Score: ${score.toLocaleString()} (${percentage.toFixed(1)}% to ${leadingSide})`;
+
+        pulse.style.left = `${flagPos}%`;
+        pulse.style.width = '20px';
+        pulse.style.height = '20px';
+        pulse.style.opacity = '0.8';
+        setTimeout(() => {
+            pulse.style.width = '100px';
+            pulse.style.height = '100px';
+            pulse.style.opacity = '0';
+        }, 10);
+        setTimeout(() => {
+            pulse.style.width = '0';
+            pulse.style.height = '0';
+            pulse.style.opacity = '0.8';
+        }, 500);
+
+        if (pullSide) {
+            const msg = document.createElement('div');
+            msg.className = 'message';
+            msg.textContent = `${pullSide} pulled! ${score.toLocaleString()} steps`;
+            messageLog.insertBefore(msg, messageLog.firstChild);
+            setTimeout(() => {
+                msg.classList.add('fade');
+                setTimeout(() => msg.remove(), 500);
+            }, 500);
+        }
+
+        if (Math.abs(position) >= TOTAL_STEPS) {
+            alert(position > 0 ? "Right Wins!" : "Left Wins!");
+            position = 0;
+            prevLeftPulls = 0;
+            prevRightPulls = 0;
+        }
+    };
+
+    pullLeftBtn.onclick = () => socket.send(JSON.stringify({action: 'pull', direction: 'left'}));
+    pullRightBtn.onclick = () => socket.send(JSON.stringify({action: 'pull', direction: 'right'}));
+</script>
 </body>
 </html>
