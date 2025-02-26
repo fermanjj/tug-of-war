@@ -7,22 +7,24 @@ const pullLeftBtn = document.getElementById('pull-left');
 const pullRightBtn = document.getElementById('pull-right');
 const minimap = document.getElementById('minimap');
 const minimapFlag = document.getElementById('minimap-flag');
+const minimapInset = document.getElementById('minimap-inset');
+const minimapInsetFlag = document.getElementById('minimap-inset-flag');
 const pulse = document.getElementById('pulse');
 const messageLog = document.getElementById('message-log');
+const userCount = document.getElementById('user-count');
 
 let position = 0;
-let prevLeftPulls = 0; // Track previous pull counts
+let prevLeftPulls = 0;
 let prevRightPulls = 0;
 const TOTAL_STEPS = 10000000;
+const INSET_RANGE = 100000; // Show ±50k steps in inset
 
-// Update UI based on server data
 socket.onmessage = (event) => {
     const data = JSON.parse(event.data);
     const newPosition = data.position;
     const newLeftPulls = data.left_pulls;
     const newRightPulls = data.right_pulls;
 
-    // Determine which side pulled
     let pullSide = '';
     if (newLeftPulls > prevLeftPulls) {
         pullSide = 'Left';
@@ -30,25 +32,26 @@ socket.onmessage = (event) => {
         pullSide = 'Right';
     }
 
-    // Update state
     position = newPosition;
     prevLeftPulls = newLeftPulls;
     prevRightPulls = newRightPulls;
     leftPulls.textContent = `Left Pulls: ${newLeftPulls.toLocaleString()}`;
     rightPulls.textContent = `Right Pulls: ${newRightPulls.toLocaleString()}`;
+    userCount.textContent = `Players: ${data.active_users}`;
 
-    // Move flag and minimap flag
     const flagPos = ((position + TOTAL_STEPS) / (2 * TOTAL_STEPS)) * 100;
     flag.style.left = `${flagPos}%`;
     minimapFlag.style.left = `${flagPos}%`;
 
-    // Update score and percentage
+    // Inset: Map ±50k steps to 0-100%
+    const insetPos = ((position + INSET_RANGE) / (2 * INSET_RANGE)) * 100;
+    minimapInsetFlag.style.left = `${Math.max(0, Math.min(100, insetPos))}%`;
+
     const score = Math.abs(position);
     const percentage = (Math.abs(position) / TOTAL_STEPS) * 100;
     const leadingSide = position >= 0 ? 'Right' : 'Left';
     scoreDisplay.textContent = `Score: ${score.toLocaleString()} (${percentage.toFixed(1)}% to ${leadingSide})`;
 
-    // Pulse animation
     pulse.style.left = `${flagPos}%`;
     pulse.style.width = '20px';
     pulse.style.height = '20px';
@@ -64,7 +67,6 @@ socket.onmessage = (event) => {
         pulse.style.opacity = '0.8';
     }, 500);
 
-    // Add message to log if a pull occurred
     if (pullSide) {
         const msg = document.createElement('div');
         msg.className = 'message';
@@ -76,7 +78,6 @@ socket.onmessage = (event) => {
         }, 500);
     }
 
-    // Check win
     if (Math.abs(position) >= TOTAL_STEPS) {
         alert(position > 0 ? "Right Wins!" : "Left Wins!");
         position = 0;
@@ -85,6 +86,5 @@ socket.onmessage = (event) => {
     }
 };
 
-// Button clicks
 pullLeftBtn.onclick = () => socket.send(JSON.stringify({action: 'pull', direction: 'left'}));
 pullRightBtn.onclick = () => socket.send(JSON.stringify({action: 'pull', direction: 'right'}));

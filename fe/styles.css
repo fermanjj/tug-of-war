@@ -174,3 +174,78 @@ h1 {
     pointer-events: none;
     transform: translate(-50%, -50%);
 }
+
+/* ... (previous styles unchanged) */
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+    background: #555;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.user-count {
+    position: absolute;
+    right: 20px;
+    color: #ddd;
+    font-size: 18px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* ... (rest of styles unchanged) */
+
+/* ... (previous styles unchanged) */
+
+.minimap {
+    width: 60%;
+    height: 20px;
+    background: #666;
+    margin: 20px auto;
+    position: relative;
+    border: 1px solid #999;
+    overflow: hidden;
+}
+
+.minimap-flag {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 4px;
+    height: 100%;
+    background: #ff3333;
+    transition: left 0.2s ease;
+}
+
+.minimap-markers {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(90deg, #999, #999 1px, transparent 1px, transparent 10%);
+}
+
+.minimap-inset {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid #fff;
+    overflow: hidden;
+}
+
+.minimap-inset-flag {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 4px;
+    height: 100%;
+    background: #ff3333;
+    transition: left 0.1s ease;
+}
+
+/* ... (rest of styles unchanged) */
