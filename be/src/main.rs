@@ -32,11 +32,13 @@ struct AppState {
 async fn main() {
     tracing_subscriber::fmt::init();
 
-    let addr_str = if std::env::var("LOCAL").is_ok() {
-        "0.0.0.0:3000"
+    let port = if let Ok(port) = std::env::var("PORT") {
+        port
     } else {
-        ""
+        "80".to_string()
     };
+
+    let addr_str = format!("0.0.0.0:{}", port);
 
     let app_state = AppState {
         redis: Arc::new(
@@ -52,7 +54,7 @@ async fn main() {
         )
         .route("/ws", any(ws_handler))
         .with_state(app_state);
-    let addr = tokio::net::TcpListener::bind(addr_str)
+    let addr = tokio::net::TcpListener::bind(&addr_str)
         .await
         .expect("Failed to bind to port");
     info!("Server running on ws://{}", addr_str);
