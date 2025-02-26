@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tug of War Online</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="game-container">
+    <header class="header">
+        <div class="logo" id="logo"></div> <!-- Logo placeholder -->
+        <h1>Global Tug-Of-War!</h1>
+    </header>
+    <div class="rope">
+        <div class="flag" id="flag"></div>
+        <div class="markers"></div>
+    </div>
+    <div class="stats">
+        <span id="left-pulls">Left Pulls: 0</span>
+        <span id="score">Score: 0 (50%)</span>
+        <span id="right-pulls">Right Pulls: 0</span>
+    </div>
+    <div class="buttons">
+        <button id="pull-left">Pull Left</button>
+        <button id="pull-right">Pull Right</button>
+    </div>
+    <div class="minimap" id="minimap">
+        <div class="minimap-flag" id="minimap-flag"></div>
+        <div class="minimap-markers"></div>
+    </div>
+    <div class="message-log" id="message-log"></div>
+    <div class="pulse" id="pulse"></div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

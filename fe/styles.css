@@ -1,0 +1,176 @@
+body {
+    background: #333; /* Dark grey background for the whole page */
+    margin: 0;
+    padding: 0;
+}
+
+.game-container {
+    text-align: center;
+    padding: 20px;
+    background: #444; /* Slightly lighter grey for the container */
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+    background: #555; /* Slightly darker header */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    background: #ff3333; /* Red base for logo */
+    border-radius: 50%;
+    position: relative;
+    margin-right: 15px;
+    box-shadow: 0 0 10px rgba(255, 51, 51, 0.7);
+}
+
+/* Logo design: A rope knot with a flag */
+.logo::before {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: #8B4513; /* Rope color */
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+.logo::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 20px;
+    background: #fff; /* White flag */
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+h1 {
+    color: #fff;
+    font-size: 36px;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.rope {
+    position: relative;
+    width: 80%;
+    height: 20px;
+    background: #8B4513 url('https://www.transparenttextures.com/patterns/woven.png');
+    margin: 20px auto;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.flag {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    width: 20px;
+    height: 40px;
+    background: #ff3333;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transition: left 0.1s ease;
+}
+
+.stats {
+    margin: 20px 0;
+    font-size: 24px;
+    display: flex;
+    justify-content: space-around;
+    color: #ddd; /* Lighter text for contrast */
+}
+
+#score {
+    font-weight: bold;
+    color: #fff;
+}
+
+.buttons {
+    margin: 20px 0;
+}
+
+.buttons button {
+    padding: 12px 24px;
+    margin: 0 10px;
+    font-size: 18px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.buttons button:active {
+    transform: scale(0.95);
+}
+
+.message-log {
+    max-height: 100px;
+    overflow: hidden;
+    margin: 20px auto;
+    font-size: 14px;
+    color: #bbb; /* Lighter grey for readability */
+    width: 80%;
+}
+
+.message {
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+    margin: 5px 0;
+}
+
+.message.fade {
+    opacity: 0;
+}
+
+.minimap {
+    width: 60%;
+    height: 20px;
+    background: #666; /* Darker minimap for contrast */
+    margin: 20px auto;
+    position: relative;
+    border: 1px solid #999;
+    overflow: hidden;
+}
+
+.minimap-flag {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 4px;
+    height: 100%;
+    background: #ff3333;
+    transition: left 0.2s ease;
+}
+
+.minimap-markers {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(90deg, #999, #999 1px, transparent 1px, transparent 10%);
+}
+
+.pulse {
+    position: absolute;
+    top: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 165, 0, 0.8);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+}
